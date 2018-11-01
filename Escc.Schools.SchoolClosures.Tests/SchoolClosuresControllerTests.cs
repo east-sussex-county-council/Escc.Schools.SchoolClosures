@@ -11,12 +11,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Escc.Schools.SchoolClosures.Tests
 {
     [TestClass]
-    public class HomeControllerTests
+    public class SchoolClosuresControllerTests
     {
         [TestMethod]
         public void TodayCreatesTitleWithoutDate()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
             var today = new DateTime(2018, 10, 29);
 
             var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today });
@@ -27,7 +27,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void TomorrowCreatesTitleWithoutDate()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
             var today = new DateTime(2018, 10, 29);
 
             var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today.AddDays(1) });
@@ -38,7 +38,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void FutureDateCreatesTitleWithDate()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
             var today = new DateTime(2018, 10, 29);
 
             var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today.AddDays(2) });
@@ -49,7 +49,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void TargetDateInIso8601FormatIsRead()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
 
             var result = controller.TargetDayForClosures("2018-11-29", new DateTime(2018, 11, 29));
 
@@ -59,7 +59,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void InvalidDateReturnsToday()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
 
             var result = controller.TargetDayForClosures("2018-11-31", new DateTime(2018, 11, 29));
 
@@ -69,7 +69,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void BlankDateReturnsToday()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
 
             var result = controller.TargetDayForClosures(String.Empty, new DateTime(2018, 11, 29));
 
@@ -79,7 +79,7 @@ namespace Escc.Schools.SchoolClosures.Tests
         [TestMethod]
         public void BlankDateReturnsTomorrowAfter330pm()
         {
-            var controller = new HomeController();
+            var controller = new SchoolClosuresController();
 
             var result = controller.TargetDayForClosures(String.Empty, new DateTime(2018, 11, 29, 15, 30, 0));
 

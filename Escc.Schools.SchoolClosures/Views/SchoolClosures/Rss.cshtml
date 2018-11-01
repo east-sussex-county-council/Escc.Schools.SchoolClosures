@@ -1,0 +1,7 @@
+﻿@model Escc.Schools.SchoolClosures.Models.RssViewModel
+@{
+    Layout = null;
+
+    // Can't use application/rss+xml because browsers don't load it properly
+    Response.ContentType = "text/xml";
+}@Html.RenderXml(Model.ClosureXml, Model.StylesheetFilename, Model.Parameters)

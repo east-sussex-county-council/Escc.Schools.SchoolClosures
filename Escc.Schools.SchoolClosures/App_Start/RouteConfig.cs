@@ -14,9 +14,15 @@ namespace Escc.Schools.SchoolClosures
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Rss",
+                url: "closuresrss.aspx",
+                defaults: new { controller = "SchoolClosures", action = "Rss" }
+            );
+
+            routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "SchoolClosures", action = "Index" }
             );
         }
     }

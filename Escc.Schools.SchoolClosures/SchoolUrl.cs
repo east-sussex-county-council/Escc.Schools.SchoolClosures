@@ -14,9 +14,9 @@ namespace Escc.Schools.SchoolClosures
         /// </summary>
         /// <param name="schoolCode">The school code.</param>
         /// <returns></returns>
-        public static Uri FormatSchoolUrl(string schoolCode, Uri baseUrl)
+        public static Uri FormatSchoolUrl(string schoolCode)
         {
-            return new Uri(baseUrl, new Uri(String.Format(CultureInfo.InvariantCulture, ConfigurationManager.AppSettings["SchoolUrl"], schoolCode), UriKind.RelativeOrAbsolute));
+            return new Uri(String.Format(CultureInfo.InvariantCulture, ConfigurationManager.AppSettings["SchoolUrl"], schoolCode), UriKind.RelativeOrAbsolute);
         }
     }
 }

@@ -220,7 +220,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\EastSussexGovUK_Mvc.cs" />
-    <Compile Include="HomeControllerTests.cs" />
+    <Compile Include="SchoolClosuresControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -73,6 +73,9 @@
     <Reference Include="Escc.EastSussexGovUK.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.EastSussexGovUK.Mvc.5.0.0\lib\net462\Escc.EastSussexGovUK.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Escc.EastSussexGovUK.Rss, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Escc.EastSussexGovUK.Rss.2.0.0\lib\Escc.EastSussexGovUK.Rss.dll</HintPath>
+    </Reference>
     <Reference Include="Escc.Html, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Html.3.0.0\lib\netstandard2.0\Escc.Html.dll</HintPath>
     </Reference>
@@ -275,15 +278,23 @@
   <ItemGroup>
     <Compile Include="App_Start\EastSussexGovUK_Mvc.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SchoolClosuresController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HtmlHelpersForXml.cs" />
+    <Compile Include="Models\RssViewModel.cs" />
     <Compile Include="Models\SchoolClosuresViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SchoolUrl.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\ClosuresRss.xslt" />
+    <Content Include="EastSussexGovUK\Rss\escc-logo-for-feed.gif" />
+    <Content Include="EastSussexGovUK\Rss\escc-logo.gif" />
+    <Content Include="EastSussexGovUK\Rss\header.png" />
+    <Content Include="EastSussexGovUK\Rss\rss-xslt.css" />
+    <Content Include="EastSussexGovUK\Rss\rss.css" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -293,18 +304,18 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\SchoolClosures\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
+    <Content Include="EastSussexGovUK\Rss\rss-to-html.ashx" />
     <None Include="packages.config" />
     <Content Include="Web.example.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Home\_ClosureList.cshtml" />
-    <Content Include="Views\Home\_ClosureListItem.cshtml" />
+    <Content Include="Views\SchoolClosures\_ClosureList.cshtml" />
+    <Content Include="Views\SchoolClosures\_ClosureListItem.cshtml" />
+    <Content Include="Views\SchoolClosures\Rss.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -340,8 +351,12 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
+    <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets'))" />
+    <Error Condition="!Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
+  <Import Project="..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" />
+  <Import Project="..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets" Condition="Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

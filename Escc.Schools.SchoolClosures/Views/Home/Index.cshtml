@@ -1,2 +1,80 @@
-﻿
-test
+﻿@model Escc.Schools.SchoolClosures.Models.SchoolClosuresViewModel
+@using Escc.ClientDependencyFramework
+@using Escc.Dates
+@using ClientDependency.Core.Mvc
+@{
+    Model.Metadata.Description = "Check this page to find out about emergency school closures in East Sussex. You can also be notified by email or RSS feed.";
+    Model.Metadata.DateCreated = "2009-02-03";
+    Model.Metadata.DateIssued = "2009-02-03";
+    Model.Metadata.IpsvPreferredTerms = "Schools";
+    Html.RequiresCss(CssFileAlias.Resolve("ServiceClosures"));
+    Html.RequiresJs("~/js/schoolclosures.js");
+}
+<div class="article school-closures">
+    <article>
+        <div class="content text-content">
+            <h1>@Model.Metadata.Title</h1>
+
+            @if (Model.Services.Count == 0)
+            {
+                if (Model.IsToday())
+                {
+                    <p><strong>There are no emergency school closures in place today.</strong></p>
+                }
+                else if (Model.IsTomorrow())
+                {
+                    <p><strong>There are no emergency school closures in place tomorrow.</strong></p>
+                }
+                else
+                {
+                    <p><strong>There are no emergency school closures in place on @Model.TargetDay.ToBritishDateWithDay().</strong></p>
+                }
+            }
+
+            <h2>This page is updated every five minutes</h2>
+
+            <ul id="updates">
+                <li>Last updated: @(DateTime.Now.ToUkDateTime().ToString("h.mm") + DateTime.Now.ToUkDateTime().ToString("tt").ToLowerInvariant())</li>
+                <li>Next update: @(DateTime.Now.ToUkDateTime().AddMinutes(5).ToString("h.mm") + DateTime.Now.ToUkDateTime().AddMinutes(5).ToString("tt").ToLowerInvariant())</li>
+                @if (Model.IsToday() || Model.IsTomorrow())
+                {
+                    <li id="willShowTomorrow" runat="server">After 3.30pm, tomorrow's closures are shown.</li>
+                }
+            </ul>
+
+            @{ Html.RenderAction("ClosureListCached", new { model = Model, date = Model.TargetDay.ToIso8601Date() }); }
+
+            <h2>Subscribe to future alerts</h2>
+
+            <p>Find out about school closures when a school reports a closure:</p>
+
+            <p><a href="/educationandlearning/schools/schoolsearch/">Find your school to sign up for email alerts</a></p>
+
+            <p class="or">or</p>
+
+            <p><a href="@Url.Content("~/closuresrss.aspx")" class="rss" type="application/rss+xml" rel="alternate">Subscribe by RSS for alerts about all East Sussex schools</a></p>
+
+            <h2>Radio</h2>
+            <p>These local radio stations receive our alerts and make announcements:</p>
+            <ul>
+                <li><a href="http://news.bbc.co.uk/local/sussex/hi/">BBC Radio Sussex</a></li>
+                <li><a href="http://moreradio.online/midsussex/">More Radio</a></li>
+                <li><a href="http://www.heart.co.uk/sussex/">Heart FM</a></li>
+                <li><a href="http://www.seahavenfm.com/">Seahaven FM</a></li>
+                <li><a href="http://www.uckfieldfm.co.uk/">Uckfield FM</a></li>
+            </ul>
+        </div>
+    </article>
+</div>
+<div class="supporting related-links text-content content-small content-medium">
+    <h2>Related pages</h2>
+    <ul>
+        <li><a href="https://www.eastsussex.gov.uk/educationandlearning/schools/termdates/">Term dates and school holidays</a> </li>
+        <li><a href="/educationandlearning/schools/schoolsearch/">Find your school to sign up for email alerts</a></li>
+    </ul>
+</div>
+
+<span class="escc-banners"></span>
+<div class="content text-content">
+    @{ Html.RenderPartial("~/Views/EastSussexGovUK/Features/_Share.cshtml", Model); }
+</div>

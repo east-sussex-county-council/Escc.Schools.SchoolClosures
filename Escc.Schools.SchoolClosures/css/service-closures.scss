@@ -1,0 +1,5 @@
+﻿/* Wherever a list of service closures appears, display it as a bulleted list with the status highlighted. */
+ol.closureList { list-style-type: none; margin: .5625em 0; border-top: 1px solid #555; }
+ol.closureList li { border-bottom: 1px solid #555; padding: .5625em 0; }
+ol.closureList .location { font-weight: bold; }
+ol.closureList p { margin: 0; }

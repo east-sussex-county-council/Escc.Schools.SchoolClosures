@@ -89,7 +89,7 @@
       <HintPath>..\packages\Escc.Redirects.1.1.0\lib\Escc.Redirects.dll</HintPath>
     </Reference>
     <Reference Include="Escc.ServiceClosures, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Escc.ServiceClosures.4.0.0-beta1\lib\netstandard2.0\Escc.ServiceClosures.dll</HintPath>
+      <HintPath>..\packages\Escc.ServiceClosures.4.0.0\lib\netstandard2.0\Escc.ServiceClosures.dll</HintPath>
     </Reference>
     <Reference Include="Escc.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Web.1.1.1\lib\Escc.Web.dll</HintPath>
@@ -290,6 +290,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\ClosuresRss.xslt" />
+    <None Include="compilerconfig.json" />
+    <None Include="compilerconfig.json.defaults">
+      <DependentUpon>compilerconfig.json</DependentUpon>
+    </None>
+    <None Include="css\service-closures.scss" />
+    <Content Include="css\service-closures.css">
+      <DependentUpon>service-closures.scss</DependentUpon>
+    </Content>
+    <Content Include="css\service-closures.min.css">
+      <DependentUpon>service-closures.css</DependentUpon>
+    </Content>
     <Content Include="EastSussexGovUK\Rss\escc-logo-for-feed.gif" />
     <Content Include="EastSussexGovUK\Rss\escc-logo.gif" />
     <Content Include="EastSussexGovUK\Rss\header.png" />
@@ -353,10 +364,12 @@
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
     <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets'))" />
     <Error Condition="!Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets'))" />
+    <Error Condition="!Exists('..\packages\BuildWebCompiler.1.12.394\build\BuildWebCompiler.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\BuildWebCompiler.1.12.394\build\BuildWebCompiler.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" />
   <Import Project="..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets" Condition="Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" />
+  <Import Project="..\packages\BuildWebCompiler.1.12.394\build\BuildWebCompiler.targets" Condition="Exists('..\packages\BuildWebCompiler.1.12.394\build\BuildWebCompiler.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -8,9 +8,9 @@
     @* "vevents", "summary", "location", "dtstart", "dtend" are hCalendar classes
         "service" is in case we need to hide the location and its punctuation together *@
     <li class="vevent">
-        <span class="summary">
-            <span class="service">
-                <span class="location">
+        <div class="summary">
+            <div class="service">
+                <p class="location">
                     @if (Model.Url == null)
                     {
                         @Model.Name;
@@ -19,33 +19,35 @@
                     {
                         <a href="@Model.Url">@Model.Name</a>
                     }
-                </span> <span class="closed">@Regex.Replace(closure.Status.ToString(), "([A-Z])", " $1").TrimStart().ToLower(CultureInfo.CurrentCulture)</span>,
-            </span>
-            @closure.Reason.Reason</span>:
+                </p>
+                <p class="closed"><span>@Regex.Replace(closure.Status.ToString(), "([A-Z])", " $1").TrimStart():</span> 
+                @if (closure.StartDate == closure.EndDate)
+                {
+                    var dateWithoutYear = closure.StartDate.ToBritishDateWithDay();
+                    dateWithoutYear = dateWithoutYear.Remove(dateWithoutYear.Length - 4); // Remove the year, because we put that inside a separate tag
+                    <time class="dtstart" datetime="@closure.StartDate.ToIso8601Date()">@dateWithoutYear</time>
 
-        @if (closure.StartDate == closure.EndDate)
-        {
-            var dateWithoutYear = closure.StartDate.ToBritishDateWithDay();
-            dateWithoutYear = dateWithoutYear.Remove(dateWithoutYear.Length - 4); // Remove the year, because we put that inside a separate tag
-            <time class="dtstart" datetime="@closure.StartDate.ToIso8601Date()">@dateWithoutYear</time>
-
-            // Date in datetime attribute here should be one day later.
-            // For example, if closure is for 15 May, should say 16 May.
-            // It's referring to 00:00 hours at the start of 16 May, meaning the end of 15 May.
-            <time class="dtend" datetime="@closure.StartDate.AddDays(1).ToIso8601Date()">@closure.StartDate.Year.ToString(CultureInfo.CurrentCulture)</time>
-        }
-        else
-        {
-            @*hCalendar. Dtstamp doesn't need to be accurate, just needs to be present for Outlook 2003 to work. *@
-            <time class="dtstart dtstamp" datetime="@closure.StartDate.ToIso8601Date()">@closure.StartDate.ToBritishDateWithDay()</time>
+                    // Date in datetime attribute here should be one day later.
+                    // For example, if closure is for 15 May, should say 16 May.
+                    // It's referring to 00:00 hours at the start of 16 May, meaning the end of 15 May.
+                    <time class="dtend" datetime="@closure.StartDate.AddDays(1).ToIso8601Date()">@closure.StartDate.Year.ToString(CultureInfo.CurrentCulture)</time>
+                }
+                else
+                {
+                    @*hCalendar. Dtstamp doesn't need to be accurate, just needs to be present for Outlook 2003 to work. *@
+                    <time class="dtstart dtstamp" datetime="@closure.StartDate.ToIso8601Date()">@closure.StartDate.ToBritishDateWithDay()</time>
             
-            @:to 
+                    @:to 
             
-            // Date in datetime attribute here should be one day later.
-            // For example, if closure is for 15 May, should say 16 May.
-            // It's referring to 00:00 hours at the start of 16 May, meaning the end of 15 May.
-            <time class="dtend" datetime="@closure.EndDate.AddDays(1).ToIso8601Date()">@closure.EndDate.ToBritishDateWithDay()</time>
-        }
+                    // Date in datetime attribute here should be one day later.
+                    // For example, if closure is for 15 May, should say 16 May.
+                    // It's referring to 00:00 hours at the start of 16 May, meaning the end of 15 May.
+                    <time class="dtend" datetime="@closure.EndDate.AddDays(1).ToIso8601Date()">@closure.EndDate.ToBritishDateWithDay()</time>
+                }
+                </p>
+            </div>
+            <p class="reason"><span>Reason:</span> @closure.Reason.Reason</p>
+        </div>
 
         @if (!String.IsNullOrEmpty(closure.Notes))
         {

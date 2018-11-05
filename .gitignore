@@ -31,6 +31,7 @@ _ReSharper*/
 ![Ww]eb.example.config
 !*/Views/web.config
 [Aa]pp*.config
+!ApplicationInsights.config
 *.scc
 [Ss]cripts*/
 packages/

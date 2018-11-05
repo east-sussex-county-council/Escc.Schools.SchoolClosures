@@ -1,4 +1,4 @@
-﻿/* Wherever a list of service closures appears, display it as a bulleted list with the status highlighted. */
+﻿/* Wherever a list of service closures appears, display it as a bulleted list. */
 ol.closureList {
   list-style-type: none;
   margin: .5625em 0;

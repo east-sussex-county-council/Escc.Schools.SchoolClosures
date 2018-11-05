@@ -20,7 +20,7 @@
                         <a href="@Model.Url">@Model.Name</a>
                     }
                 </p>
-                <p class="closed"><span>@Regex.Replace(closure.Status.ToString(), "([A-Z])", " $1").TrimStart():</span> 
+                <p class="closed">@Regex.Replace(closure.Status.ToString(), "([A-Z])", " $1").TrimStart(): 
                 @if (closure.StartDate == closure.EndDate)
                 {
                     var dateWithoutYear = closure.StartDate.ToBritishDateWithDay();
@@ -46,7 +46,7 @@
                 }
                 </p>
             </div>
-            <p class="reason"><span>Reason:</span> @closure.Reason.Reason</p>
+            <p class="reason">Reason: @closure.Reason.Reason</p>
         </div>
 
         @if (!String.IsNullOrEmpty(closure.Notes))

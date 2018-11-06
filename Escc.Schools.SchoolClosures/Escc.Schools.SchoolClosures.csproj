@@ -326,9 +326,9 @@
   <ItemGroup>
     <Content Include="EastSussexGovUK\Rss\rss-to-html.ashx" />
     <None Include="packages.config" />
-    <Content Include="Web.example.config">
+    <None Include="Web.example.config">
       <SubType>Designer</SubType>
-    </Content>
+    </None>
     <Content Include="Views\SchoolClosures\_ClosureList.cshtml" />
     <Content Include="Views\SchoolClosures\_ClosureListItem.cshtml" />
     <Content Include="Views\SchoolClosures\Rss.cshtml" />

@@ -358,13 +358,13 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets'))" />
-    <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets'))" />
     <Error Condition="!Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
-  <Import Project="..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Rss.1.0.1\build\Escc.ServiceClosures.Rss.targets')" />
   <Import Project="..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets" Condition="Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" />
+  <Import Project="..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

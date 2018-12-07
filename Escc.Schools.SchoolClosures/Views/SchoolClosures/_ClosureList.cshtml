@@ -1,7 +1,7 @@
 ﻿@using Escc.ServiceClosures
 @using System.Collections.ObjectModel
 @using Escc.Dates
-
+@using Humanizer
 @model Escc.Schools.SchoolClosures.Models.SchoolClosuresViewModel
 @functions {
     Dictionary<int, Service> AddClosureListItems(ClosureStatus? status)
@@ -30,7 +30,7 @@
                             if ((Model.ShowEmergencyClosures && closure.Reason.Emergency) ||
                             (Model.ShowPlannedClosures && !closure.Reason.Emergency))
                             {
-                                if (!filteredList.ContainsKey(service.Id)) { filteredList.Add(service.Id, new Service() { Name = service.Name, Url = service.Url }); }
+                                if (!filteredList.ContainsKey(service.Id)) { filteredList.Add(service.Id, new Service() { Name = service.Name, Url = service.Url, Type = service.Type }); }
                                 filteredList[service.Id].Closures.Add(closure);
                             }
                         }
@@ -58,24 +58,23 @@
     }
 }
 @{
+    string when = String.Empty;
+    if (Model.TargetDay.HasValue && Model.TargetDay.Value == DateTime.Today) { when = " today"; }
+    else if (Model.TargetDay.HasValue && Model.TargetDay.Value == DateTime.Today.AddDays(1)) { when = " tomorrow"; }
+    else if (Model.TargetDay != null) { when = " on " + Model.TargetDay.Value.ToBritishDateWithDay(); }
 
     // Create a list each for services that are confirmed partly closed, closed or have not provided information.
     // Typical use might be in severe weather, when you might assume a service is closed unless it says it's open.
     if (Model.GroupByClosureStatus)
     {
-        string when = String.Empty;
-        if (Model.TargetDay.HasValue && Model.TargetDay.Value == DateTime.Today) { when = " today"; }
-        else if (Model.TargetDay.HasValue && Model.TargetDay.Value == DateTime.Today.AddDays(1)) { when = " tomorrow"; }
-        else if (Model.TargetDay != null) { when = " on " + Model.TargetDay.Value.ToBritishDateWithDay(); }
-
         var partlyClosed = AddClosureListItems(ClosureStatus.PartlyClosed);
         if (partlyClosed.Count > 0)
         {
             <h2>Confirmed <strong>partly closed</strong>@when</h2>
             <ol class="closureList">
                 @foreach (var serviceId in partlyClosed.Keys)
-    {
-        @Html.Partial("_ClosureListItem", partlyClosed[serviceId])
+                {
+                    @Html.Partial("_ClosureListItem", partlyClosed[serviceId])
                 }
             </ol>
         }
@@ -86,8 +85,8 @@
             <h2>Confirmed <strong>closed</strong>@when</h2>;
             <ol class="closureList">
                 @foreach (var serviceId in closed.Keys)
-    {
-        @Html.Partial("_ClosureListItem", closed[serviceId])
+                {
+                    @Html.Partial("_ClosureListItem", closed[serviceId])
                 }
             </ol>
         }
@@ -99,6 +98,7 @@
         var all = AddClosureListItems(null);
         if (all.Count > 0)
         {
+            <h2>@(all.First().Value.Type.PluralText.Transform(To.SentenceCase)) affected@(when)</h2>
             <ol class="closureList">
                 @foreach (var serviceId in all.Keys)
                 {

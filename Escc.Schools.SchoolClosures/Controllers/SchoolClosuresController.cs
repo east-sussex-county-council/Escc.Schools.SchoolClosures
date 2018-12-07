@@ -28,7 +28,7 @@ namespace Escc.Schools.SchoolClosures.Controllers
         /// <returns></returns>
         public async Task<ActionResult> Index(string date)
         {
-            var model = new SchoolClosuresViewModel() { ShowPlannedClosures = false, ShowEmergencyClosures = true, GroupByClosureStatus = true };
+            var model = new SchoolClosuresViewModel() { ShowPlannedClosures = false, ShowEmergencyClosures = true };
 
             // This page displays closures for a specific day. By default, that's today, but can be set to a different day.
             model.TargetDay = TargetDayForClosures(date, DateTime.Now.ToUkDateTime());

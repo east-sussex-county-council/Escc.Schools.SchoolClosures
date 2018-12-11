@@ -1,7 +1,6 @@
 ﻿@using Escc.ServiceClosures
 @using System.Collections.ObjectModel
 @using Escc.Dates
-@using Humanizer
 @model Escc.Schools.SchoolClosures.Models.SchoolClosuresViewModel
 @functions {
     Dictionary<int, Service> AddClosureListItems(ClosureStatus? status)
@@ -98,7 +97,7 @@
         var all = AddClosureListItems(null);
         if (all.Count > 0)
         {
-            <h2>@(all.First().Value.Type.PluralText.Transform(To.SentenceCase)) affected@(when)</h2>
+            <h2>Confirmed <strong>closed</strong> or <strong>partly closed</strong>@when</h2>
             <ol class="closureList">
                 @foreach (var serviceId in all.Keys)
                 {

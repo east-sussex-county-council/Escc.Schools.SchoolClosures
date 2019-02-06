@@ -19,15 +19,15 @@
             {
                 if (Model.IsToday())
                 {
-                    <p><strong>There are no emergency school closures in place today.</strong></p>
+                    <p><strong>There are no emergency school closures yet for today.</strong></p>
                 }
                 else if (Model.IsTomorrow())
                 {
-                    <p><strong>There are no emergency school closures in place tomorrow.</strong></p>
+                    <p><strong>There are no emergency school closures yet for tomorrow.</strong></p>
                 }
                 else
                 {
-                    <p><strong>There are no emergency school closures in place on @Model.TargetDay.ToBritishDateWithDay().</strong></p>
+                    <p><strong>There are no emergency school closures yet for @Model.TargetDay.ToBritishDateWithDay().</strong></p>
                 }
             }
 
@@ -38,8 +38,9 @@
                 <li>Next update: @(DateTime.Now.ToUkDateTime().AddMinutes(5).ToString("h.mm") + DateTime.Now.ToUkDateTime().AddMinutes(5).ToString("tt").ToLowerInvariant())</li>
                 @if (Model.IsToday() || Model.IsTomorrow())
                 {
-                    <li id="willShowTomorrow" runat="server">After 3.30pm, tomorrow's closures are shown.</li>
+                    <li>After 3.30pm, tomorrow's closures are shown.</li>
                 }
+                <li>Some schools may have yet to decide. Please continue to check this page, or subscribe to alerts.</li>
             </ul>
 
             @{ Html.RenderAction("ClosureListCached", new { model = Model, date = Model.TargetDay.ToIso8601Date() }); }

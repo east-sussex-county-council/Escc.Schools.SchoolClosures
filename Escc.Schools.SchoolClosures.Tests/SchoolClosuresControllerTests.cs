@@ -1,52 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using Escc.Schools.SchoolClosures.Controllers;
 using Escc.Schools.SchoolClosures.Models;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using NUnit.Framework;
 
 namespace Escc.Schools.SchoolClosures.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class SchoolClosuresControllerTests
     {
-        [TestMethod]
+        [Test]
         public void TodayCreatesTitleWithoutDate()
         {
             var controller = new SchoolClosuresController();
-            var today = new DateTime(2018, 10, 29);
+            var model = new Mock<ISchoolClosuresViewModel>();
+            model.Setup(x => x.IsToday()).Returns(true);
+            model.Setup(x => x.IsTomorrow()).Returns(false);
+            model.Setup(x => x.TargetDay).Returns(new DateTime(2018, 10, 29));
 
-            var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today });
+            var result = controller.BuildPageTitle(model.Object);
 
             Assert.AreEqual("List of emergency school closures", result);
         }
 
-        [TestMethod]
+        [Test]
         public void TomorrowCreatesTitleWithoutDate()
         {
             var controller = new SchoolClosuresController();
-            var today = new DateTime(2018, 10, 29);
+            var model = new Mock<ISchoolClosuresViewModel>();
+            model.Setup(x => x.IsToday()).Returns(false);
+            model.Setup(x => x.IsTomorrow()).Returns(true);
+            model.Setup(x => x.TargetDay).Returns(new DateTime(2018, 10, 29).AddDays(1));
 
-            var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today.AddDays(1) });
+            var result = controller.BuildPageTitle(model.Object);
 
             Assert.AreEqual("List of emergency school closures", result);
         }
 
-        [TestMethod]
+        [Test]
         public void FutureDateCreatesTitleWithDate()
         {
             var controller = new SchoolClosuresController();
-            var today = new DateTime(2018, 10, 29);
+            var model = new Mock<ISchoolClosuresViewModel>();
+            model.Setup(x => x.IsToday()).Returns(false);
+            model.Setup(x => x.IsTomorrow()).Returns(false);
+            model.Setup(x => x.TargetDay).Returns(new DateTime(2018, 10, 29).AddDays(2));
 
-            var result = controller.BuildPageTitle(new SchoolClosuresViewModel(today) { TargetDay = today.AddDays(2) });
+            var result = controller.BuildPageTitle(model.Object);
 
             Assert.AreEqual("List of emergency school closures on Wednesday 31 October 2018", result);
         }
 
-        [TestMethod]
+        [Test]
         public void TargetDateInIso8601FormatIsRead()
         {
             var controller = new SchoolClosuresController();
@@ -56,7 +61,7 @@ namespace Escc.Schools.SchoolClosures.Tests
             Assert.AreEqual(new DateTime(2018, 11, 29), result);
         }
 
-        [TestMethod]
+        [Test]
         public void InvalidDateReturnsToday()
         {
             var controller = new SchoolClosuresController();
@@ -66,7 +71,7 @@ namespace Escc.Schools.SchoolClosures.Tests
             Assert.AreEqual(new DateTime(2018, 11, 29), result);
         }
 
-        [TestMethod]
+        [Test]
         public void BlankDateReturnsToday()
         {
             var controller = new SchoolClosuresController();
@@ -76,7 +81,7 @@ namespace Escc.Schools.SchoolClosures.Tests
             Assert.AreEqual(new DateTime(2018, 11, 29), result);
         }
 
-        [TestMethod]
+        [Test]
         public void BlankDateReturnsTomorrowAfter330pm()
         {
             var controller = new SchoolClosuresController();

@@ -12,7 +12,7 @@ namespace Escc.Schools.SchoolClosures.Models
     /// View model to display a list of school closures within the East Sussex County Council website template
     /// </summary>
     /// <seealso cref="Escc.EastSussexGovUK.Mvc.BaseViewModel" />
-    public class SchoolClosuresViewModel : BaseViewModel
+    public class SchoolClosuresViewModel : BaseViewModel, ISchoolClosuresViewModel
     {
         private DateTime _today;
 
@@ -33,7 +33,7 @@ namespace Escc.Schools.SchoolClosures.Models
         /// <returns>
         ///   <c>true</c> if this instance is today; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsToday() { return TargetDay.HasValue && TargetDay.Value == _today; }
+        public virtual bool IsToday() { return TargetDay.HasValue && TargetDay.Value == _today; }
 
         /// <summary>
         /// Determines whether the <see cref="TargetDay"/> is tomorrow.
@@ -41,7 +41,7 @@ namespace Escc.Schools.SchoolClosures.Models
         /// <returns>
         ///   <c>true</c> if this instance is tomorrow; otherwise, <c>false</c>.
         /// </returns>
-        public bool IsTomorrow() { return TargetDay.HasValue && TargetDay.Value == _today.AddDays(1); }
+        public virtual bool IsTomorrow() { return TargetDay.HasValue && TargetDay.Value == _today.AddDays(1); }
 
         /// <summary>
         /// Gets or sets the target day for which closures should be shown, if any.
@@ -49,7 +49,7 @@ namespace Escc.Schools.SchoolClosures.Models
         /// <value>
         /// The target day.
         /// </value>
-        public DateTime? TargetDay { get; set; }
+        public virtual DateTime? TargetDay { get; set; }
 
         /// <summary>
         /// Gets the services containing the closure data.

@@ -8,10 +8,12 @@ using System.Web.Hosting;
 using System.Web.Mvc;
 using System.Xml.XPath;
 using Escc.Dates;
+using Escc.EastSussexGovUK.Mvc;
 using Escc.Schools.SchoolClosures.Models;
 using Escc.ServiceClosures;
 using Escc.Web;
 using Escc.Web.Metadata;
+using Exceptionless;
 
 namespace Escc.Schools.SchoolClosures.Controllers
 {
@@ -57,6 +59,19 @@ namespace Escc.Schools.SchoolClosures.Controllers
             if (Url != null)
             {
                 model.Metadata.RssFeeds.Add(new FeedUrl(new Uri(Url.Content("~/closuresrss.aspx"), UriKind.Relative), "alternate", "School closures"));
+            }
+
+            // Support the website template
+            var templateRequest = new EastSussexGovUKTemplateRequest(Request);
+            try
+            {
+                // No request for web chat support until caching improved
+                model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
+            }
+            catch (Exception ex)
+            {
+                // Failure to get the template should be reported, but should not cause the page to fail
+                ex.ToExceptionless().Submit();
             }
 
             return View(model);
@@ -154,13 +169,13 @@ namespace Escc.Schools.SchoolClosures.Controllers
         /// <returns></returns>
         [ChildActionOnly]
         [OutputCache(Duration = 300, VaryByParam = "date")]
-        public PartialViewResult ClosureListCached(SchoolClosuresViewModel model, string date)
+        public PartialViewResult ClosureListCached(ISchoolClosuresViewModel model, string date)
         {
             return PartialView("_ClosureList", model);
         }
 
         [NonAction]
-        public string BuildPageTitle(SchoolClosuresViewModel model)
+        public string BuildPageTitle(ISchoolClosuresViewModel model)
         {
             var title = "List of emergency school closures";
             if (!model.IsToday() && !model.IsTomorrow())

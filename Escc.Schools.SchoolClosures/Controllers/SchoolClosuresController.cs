@@ -65,7 +65,15 @@ namespace Escc.Schools.SchoolClosures.Controllers
             var templateRequest = new EastSussexGovUKTemplateRequest(Request);
             try
             {
-                // No request for web chat support until caching improved
+                model.WebChat = await templateRequest.RequestWebChatSettingsAsync();
+            }
+            catch (Exception ex)
+            {
+                // Failure to get webchat settings should be reported, but should not cause the page to fail
+                ex.ToExceptionless().Submit();
+            }
+            try
+            {
                 model.TemplateHtml = await templateRequest.RequestTemplateHtmlAsync();
             }
             catch (Exception ex)

@@ -82,5 +82,10 @@ namespace Escc.Schools.SchoolClosures.Models
         /// 	<c>true</c> if grouping by closure status; otherwise, <c>false</c>.
         /// </value>
         public bool GroupByClosureStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets whether to show a heading when <see cref="GroupByClosureStatus"/> is <c>false</c>, indicating the kind of closures being shown
+        /// </summary>
+        public bool ShowHeading { get; set; } = true;
     }
 }

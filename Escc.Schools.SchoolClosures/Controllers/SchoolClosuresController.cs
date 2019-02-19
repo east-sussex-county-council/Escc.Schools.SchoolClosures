@@ -106,7 +106,7 @@ namespace Escc.Schools.SchoolClosures.Controllers
         /// </summary>
         /// <param name="service">The service.</param>
         /// <returns></returns>
-        [OutputCache(Duration =300, VaryByParam ="service")]
+        //[OutputCache(Duration =300, VaryByParam ="service")]
         public async Task<ActionResult> Rss(string service)
         {
             var model = new RssViewModel();
@@ -179,7 +179,7 @@ namespace Escc.Schools.SchoolClosures.Controllers
         [OutputCache(Duration = 300, VaryByParam = "date")]
         public PartialViewResult ClosureListCached(ISchoolClosuresViewModel model, string date)
         {
-            return PartialView("_ClosureList", model);
+            return PartialView("~/Views/Shared/ServiceClosures/_ClosureList.cshtml", model);
         }
 
         [NonAction]

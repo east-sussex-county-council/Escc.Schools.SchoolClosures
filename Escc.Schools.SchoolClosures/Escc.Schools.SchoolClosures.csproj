@@ -92,8 +92,11 @@
     <Reference Include="Escc.Redirects.Handlers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Redirects.Handlers.1.0.0\lib\Escc.Redirects.Handlers.dll</HintPath>
     </Reference>
-    <Reference Include="Escc.ServiceClosures, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Escc.ServiceClosures.5.0.0\lib\netstandard2.0\Escc.ServiceClosures.dll</HintPath>
+    <Reference Include="Escc.ServiceClosures, Version=5.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Escc.ServiceClosures.5.0.1\lib\netstandard2.0\Escc.ServiceClosures.dll</HintPath>
+    </Reference>
+    <Reference Include="Escc.ServiceClosures.Mvc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Escc.ServiceClosures.Mvc.1.0.0\lib\net472\Escc.ServiceClosures.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Escc.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=06fad7304560ae6f, processorArchitecture=MSIL">
       <HintPath>..\packages\Escc.Web.1.1.2\lib\Escc.Web.dll</HintPath>
@@ -333,11 +336,12 @@
   <ItemGroup>
     <Content Include="EastSussexGovUK\Rss\rss-to-html.ashx" />
     <None Include="packages.config" />
+    <Content Include="Views\Shared\ServiceClosures\_ServiceClosedToday.cshtml" />
+    <Content Include="Views\Shared\ServiceClosures\_ClosureListItem.cshtml" />
+    <Content Include="Views\Shared\ServiceClosures\_ClosureList.cshtml" />
     <None Include="Web.example.config">
       <SubType>Designer</SubType>
     </None>
-    <Content Include="Views\SchoolClosures\_ClosureList.cshtml" />
-    <Content Include="Views\SchoolClosures\_ClosureListItem.cshtml" />
     <Content Include="Views\SchoolClosures\Rss.cshtml" />
   </ItemGroup>
   <PropertyGroup>
@@ -368,10 +372,12 @@
     <Error Condition="!Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.9.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets'))" />
+    <Error Condition="!Exists('..\packages\Escc.ServiceClosures.Mvc.1.0.0\build\Escc.ServiceClosures.Mvc.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Escc.ServiceClosures.Mvc.1.0.0\build\Escc.ServiceClosures.Mvc.targets'))" />
   </Target>
   <Import Project="..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets" Condition="Exists('..\packages\NETStandard.Library.2.0.3\build\netstandard2.0\NETStandard.Library.targets')" />
   <Import Project="..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets" Condition="Exists('..\packages\Escc.EastSussexGovUK.Rss.2.0.0\build\Escc.EastSussexGovUK.Rss.targets')" />
   <Import Project="..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Rss.1.0.2\build\Escc.ServiceClosures.Rss.targets')" />
+  <Import Project="..\packages\Escc.ServiceClosures.Mvc.1.0.0\build\Escc.ServiceClosures.Mvc.targets" Condition="Exists('..\packages\Escc.ServiceClosures.Mvc.1.0.0\build\Escc.ServiceClosures.Mvc.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

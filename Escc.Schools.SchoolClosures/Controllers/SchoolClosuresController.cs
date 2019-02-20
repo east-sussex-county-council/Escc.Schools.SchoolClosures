@@ -106,7 +106,7 @@ namespace Escc.Schools.SchoolClosures.Controllers
         /// </summary>
         /// <param name="service">The service.</param>
         /// <returns></returns>
-        //[OutputCache(Duration =300, VaryByParam ="service")]
+        [OutputCache(Duration =300, VaryByParam ="service")]
         public async Task<ActionResult> Rss(string service)
         {
             var model = new RssViewModel();

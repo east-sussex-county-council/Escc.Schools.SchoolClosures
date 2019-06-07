@@ -3,11 +3,14 @@
 @using ClientDependency.Core.Mvc
 @{
     Model.Metadata.Description = "Check this page to find out about emergency school closures in East Sussex. You can also be notified by email or RSS feed.";
-    Model.Metadata.DateCreated = "2009-02-03";
-    Model.Metadata.DateIssued = "2009-02-03";
-    Model.Metadata.IpsvPreferredTerms = "Schools";
+    Model.Metadata.DateCreated = new DateTimeOffset(new DateTime(2009,2,3));
+    Model.Metadata.DateIssued = new DateTimeOffset(new DateTime(2009,2,3));
     Html.RequiresCss("~/css/service-closures.css");
     Html.RequiresJs("~/js/schoolclosures.js");
+}
+@section Metadata
+{
+    <link rel="alternate" type="application/rss+xml" href="@Url.Content("~/closuresrss.aspx")" title="School closures - East Sussex County Council" />
 }
 <div class="article school-closures">
     <article>

@@ -12,7 +12,6 @@ using Escc.EastSussexGovUK.Mvc;
 using Escc.Schools.SchoolClosures.Models;
 using Escc.ServiceClosures;
 using Escc.Web;
-using Escc.Web.Metadata;
 using Exceptionless;
 
 namespace Escc.Schools.SchoolClosures.Controllers
@@ -53,12 +52,6 @@ namespace Escc.Schools.SchoolClosures.Controllers
                     service.Url = PrepareAbsoluteUrl(SchoolUrl.FormatSchoolUrl(service.Code).ToString());
                     model.Services.Add(service);
                 }
-            }
-
-            // Add RSS link to metadata for autodiscovery
-            if (Url != null)
-            {
-                model.Metadata.RssFeeds.Add(new FeedUrl(new Uri(Url.Content("~/closuresrss.aspx"), UriKind.Relative), "alternate", "School closures"));
             }
 
             // Support the website template
